@@ -4,17 +4,38 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 
-// command line usage example: node index.js https://raredrops.github.io/ ul
-async function fetchAndPrintText(url, selector) {
-	const response = await axios.get(url);
-	const $ = cheerio.load(response.data);
-	const selectedText = $(selector).html();
-
-	console.log(selectedText)
-	return selectedText
-}
-
 // process.argvs returns a list of arguments with the first argument being the node.exe path and second argument being the script file, 
 // the subsequent items are the real arguments
 const [nodePath, scriptPath, url, selector] = process.argv;
-fetchAndPrintText(url, selector)
+
+// if wrong number of arguments are passed, exit the process
+if (!url || !selector) {
+	console.log("Usage: text-scraper-cli <url> <css selector>")
+	process.exit(1);
+}
+
+// command line usage example: node index.js https://raredrops.github.io/ ul
+async function fetchAndPrintText(url, selector) {
+	try {
+		const response = await axios.get(url);
+		const $ = cheerio.load(response.data);
+		const selectedElements = $(selector);
+
+		if (selectedElements.length == 0) {
+			console.log('No elements matched the selector');
+			return;
+		}
+
+		selectedElements.each((i, element) => {
+			console.log($(element).text());
+		})
+
+		console.log(selectedText);
+		return selectedText;
+	} catch (error) {
+		console.error('Error fetching URL:', error.message);
+	}
+}
+
+
+fetchAndPrintText(url, selector)	
