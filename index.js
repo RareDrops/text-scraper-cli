@@ -15,7 +15,7 @@ if (!url || !selector) {
 }
 
 // command line usage example: node index.js https://raredrops.github.io/ ul
-async function fetchAndPrintText(url, selector) {
+async function fetchText(url, selector) {
 	try {
 		const response = await axios.get(url);
 		const $ = cheerio.load(response.data);
@@ -26,16 +26,16 @@ async function fetchAndPrintText(url, selector) {
 			return;
 		}
 
+		var elementsArray = []
 		selectedElements.each((i, element) => {
-			console.log($(element).text());
+			elementsArray.push($(element).text().replace(/\s+/g, ' ')); // replaces all occurences of white space, replace with 1 space
 		})
 
-		console.log(selectedText);
-		return selectedText;
+		return elementsArray;
+
 	} catch (error) {
 		console.error('Error fetching URL:', error.message);
 	}
 }
 
-
-fetchAndPrintText(url, selector)	
+console.log(await fetchText(url, selector));	
