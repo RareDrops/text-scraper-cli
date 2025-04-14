@@ -52,6 +52,12 @@ this will allow your terminal to run the command anywhere with:
 text-scraper-cli <url> <css-selector>
 ```
 
+## Example
+To scrape all list items (`<li>`) from a webpage:
+```bash
+text-scraper-cli https://raredrops.github.io li
+```
+
 ## Contributing
 Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
 
