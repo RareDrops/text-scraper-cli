@@ -47,10 +47,14 @@ You can also install the command globally into your environment by doing:
 npm install -g
 ```
 
-this will allow your terminal to run:
-
+this will allow your terminal to run the command anywhere with:
 ```bash
 text-scraper-cli <url> <css-selector>
 ```
 
-anywhere
+## Contributing
+Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+
+## License
+MIT © [RareDrop](https://github.com/RareDrops/text-scraper-cli)
+
